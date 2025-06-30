@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html class="dark">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="css/custom.css">
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/index.global.min.js"></script>
+    <script>
+
+      document.addEventListener('DOMContentLoaded', function() {
+        var calendarEl = document.getElementById('calendar');
+        var calendar = new FullCalendar.Calendar(calendarEl, {
+          initialView: 'multiMonthYear',
+          locale: 'es',
+          buttonText: {
+            today: 'Hoy'
+            }
+        });
+        calendar.render();
+      });
+
+    </script>
+  </head>
+  <body class="bg-white dark:bg-gray-800">
+    <div id="calendar" class=""></div>
+  </body>
+</html>
