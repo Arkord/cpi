@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html class="dark">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="css/custom.css">
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/index.global.min.js"></script>
+    <script>
+      const alumnos = [
+        { calendario: '1', nombre: 'Ana López',        matricula: 'A001' },
+        { calendario: '1', nombre: 'Carlos Ruiz',      matricula: 'A002' },
+        { calendario: '1', nombre: 'María Hernández',  matricula: 'A003' },
+        { calendario: '1', nombre: 'Luis Fernández',   matricula: 'A004' },
+        { calendario: '1', nombre: 'Gabriela Torres',  matricula: 'A005' },
+        { calendario: '1', nombre: 'Jorge Martínez',   matricula: 'A006' },
+        { calendario: '1', nombre: 'Valeria Ramírez',  matricula: 'A007' },
+        { calendario: '1', nombre: 'Ernesto Gómez',    matricula: 'A008' },
+        { calendario: '2', nombre: 'Lucía Morales',    matricula: 'B001' },
+        { calendario: '2', nombre: 'Sofía Castillo',   matricula: 'B002' },
+        { calendario: '2', nombre: 'Daniel Méndez',    matricula: 'B003' },
+        { calendario: '2', nombre: 'Andrea Salinas',   matricula: 'B004' },
+        { calendario: '2', nombre: 'Pablo Chávez',     matricula: 'B005' },
+        { calendario: '2', nombre: 'Renata Aguirre',   matricula: 'B006' },
+        { calendario: '2', nombre: 'Tomás Domínguez',  matricula: 'B007' },
+        { calendario: '2', nombre: 'Camila Navarro',   matricula: 'B008' }
+      ];
+      const calendarios =  [
+              {
+                id: '1',
+                start: '2025-06-01',
+                end: '2025-06-04',
+                display: 'background',
+                backgroundColor: '#3b82f6',
+                title: 'Calendario 1'
+              },
+              {
+                id: '2',
+                start: '2025-06-09',
+                end: '2025-06-15',
+                display: 'background',
+                backgroundColor: '#ef4444', 
+                title: 'Calendario 2'
+              }
+            ]
+      document.addEventListener('DOMContentLoaded', function() {
+        var calendarEl = document.getElementById('calendar');
+        var calendar = new FullCalendar.Calendar(calendarEl, {
+          initialView: 'multiMonthYear',
+          locale: 'es',
+          buttonText: {
+            today: 'Hoy'
+            },
+            events: [...calendarios],
+            dateClick: function (info) {
+              const clickedDate = new Date(info.dateStr);
+
+              const rangosActivos = calendarios.filter(r => {
+                const start = new Date(r.start);
+                const end = new Date(r.end);
+                return clickedDate >= start && clickedDate < end;
+              });
+
+              if (rangosActivos.length === 0) {
+                return; // No hay alumnos que mostrar
+              }
+
+              const modalTitle = document.getElementById('modal-title');
+              const modalContent = document.getElementById('modal-content');
+              modalContent.innerHTML = ''; // limpiar contenido previo
+
+              rangosActivos.forEach(rango => {
+                const alumnosEnRango = alumnos.filter(a => a.calendario === rango.id);
+
+                // Título para este rango
+                const titleItem = document.createElement('li');
+                titleItem.className = 'font-semibold text-blue-500';
+                titleItem.textContent = `📅 ${rango.title} (ID ${rango.id})`;
+                modalContent.appendChild(titleItem);
+
+                if (alumnosEnRango.length > 0) {
+                  alumnosEnRango.forEach(a => {
+                    const li = document.createElement('li');
+                    li.textContent = `• ${a.nombre} (${a.matricula})`;
+                    modalContent.appendChild(li);
+                  });
+                } else {
+                  const li = document.createElement('li');
+                  li.textContent = 'Sin alumnos.';
+                  modalContent.appendChild(li);
+                }
+              });
+
+              // Mostrar modal
+              document.getElementById('modal').classList.remove('hidden');
+            }
+        });
+        calendar.render();
+      });
+
+      function cerrarModal() {
+        document.getElementById('modal').classList.add('hidden');
+        document.getElementById('modal-content').innerHTML = '';
+      }
+
+    </script>
+  </head>
+  <body class="bg-white dark:bg-gray-800">
+    <div id="calendar" class="max-w-5xl mx-auto"></div>
+
+    <!-- Modal -->
+<div id="modal" class="fixed inset-0 z-50 hidden items-center justify-center bg-black bg-opacity-50">
+  <div class="bg-white dark:bg-gray-800 rounded-lg max-w-lg w-full p-6 shadow-lg">
+    <h2 class="text-xl font-bold mb-4 text-gray-800 dark:text-white" id="modal-title">Alumnos</h2>
+    <ul id="modal-content" class="space-y-2 text-gray-700 dark:text-gray-200"></ul>
+    <div class="mt-6 text-right">
+      <button onclick="cerrarModal()"
+        class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition">Cerrar</button>
+    </div>
+  </div>
+</div>
+  </body>
+</html>

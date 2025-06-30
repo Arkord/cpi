@@ -1,2 +1,56 @@
 @import "tailwindcss";
-@import "flyonui/src/vendor/fullcalendar.css";
+
+.fc {
+  @apply bg-gray-900 text-white rounded-lg shadow-lg;
+}
+
+.fc-toolbar-title {
+  @apply text-xl font-bold text-white;
+}
+
+.fc-button {
+  @apply bg-gray-700 text-white px-3 py-1 rounded transition-colors duration-200;
+}
+
+.fc-button:hover {
+  @apply bg-gray-600;
+}
+
+.fc-button-primary {
+  @apply bg-blue-700;
+}
+
+.fc-button-primary:hover {
+  @apply bg-blue-600;
+}
+
+.fc-daygrid-day-number {
+  @apply text-sm font-semibold text-white pr-2;
+}
+
+.fc-day-today {
+  @apply bg-blue-900;
+}
+
+.fc-col-header-cell-cushion {
+  @apply text-white font-semibold uppercase;
+}
+
+.fc-scrollgrid {
+  @apply border-gray-600;
+}
+.fc-daygrid-day-frame {
+    @apply bg-gray-600 cr ;
+}
+
+.fc-theme-standard td, .fc-theme-standard th {
+    @apply border-gray-500 cursor-pointer;
+}
+
+.fc-daygrid-day-number, .fc-col-header-cell-cushion, .fc-toolbar-title, .fc {
+    @apply text-gray-300;
+}
+
+.fc-event-title {
+    @apply text-center
+}
