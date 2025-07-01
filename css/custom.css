@@ -426,10 +426,10 @@
   border-color: var(--color-gray-600);
 }
 .fc-daygrid-day-frame {
-  cursor: pointer;
-  background-color: var(--color-red-600);
+  background-color: var(--color-gray-600);
 }
 .fc-theme-standard td, .fc-theme-standard th {
+  cursor: pointer;
   border-color: var(--color-gray-500);
 }
 .fc-daygrid-day-number, .fc-col-header-cell-cushion, .fc-toolbar-title, .fc {

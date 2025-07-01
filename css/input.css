@@ -40,7 +40,7 @@
   @apply border-gray-600;
 }
 .fc-daygrid-day-frame {
-    @apply bg-gray-600 cr ;
+    @apply bg-gray-600 ;
 }
 
 .fc-theme-standard td, .fc-theme-standard th {
