@@ -1,10 +1,10 @@
 @import "tailwindcss";
 
-.fc {
-  @apply bg-gray-900 text-white rounded-lg shadow-lg;
+.fc, .fc-multimonth-header, .fc-multimonth-title, .columnheader, .fc-scrollgrid-sync-inner {
+  @apply bg-gray-900 text-white shadow-lg;
 }
 
-.fc-toolbar-title {
+.fc-toolbar-title, .fc-multimonth-title {
   @apply text-xl font-bold text-white;
 }
 
@@ -53,4 +53,8 @@
 
 .fc-event-title {
     @apply text-center
+}
+
+.webkit-flex {
+  display: -webkit-flex;
 }

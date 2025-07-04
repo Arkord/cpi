@@ -2,9 +2,9 @@
 <html class="dark">
   <head>
     <meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <link rel="stylesheet" href="css/custom.css">
-    <script src="js/jquery-3.7.1.slim.min.js"></script>
-    <script src="js/bootstrap.min.js"></script>
+    <script src="js/jquery-3.7.1.min.js"></script>
     <script src="js/index.global.min.js"></script>
     <script>
       const alumnos = [
@@ -46,6 +46,7 @@
     $(function () {
     const calendar = new FullCalendar.Calendar($('#calendar')[0], {
       initialView: 'multiMonthYear',
+	  contentHeight: 'auto',
       locale: 'es',
       buttonText: {
         today: 'Hoy'
@@ -107,9 +108,14 @@
   });
 
     </script>
+    <style>
+      .webkit-flex {
+  display: -webkit-flex;
+}
+    </style>
   </head>
-  <body class="bg-white dark:bg-gray-800">
-    <div id="calendar" class="max-w-5xl mx-auto"></div>
+  <body class="min-h-screen bg-white dark:bg-gray-800">
+    <div id="calendar" class="w-full h-screen max-w-none"></div>
 
    <!-- Modal Tailwind -->
 <div id="modal"
@@ -117,11 +123,12 @@
   <div class="bg-white dark:bg-gray-800 text-gray-900 dark:text-white w-full max-w-lg mx-4 rounded-xl shadow-lg overflow-hidden animate-fade-in">
     
     <!-- Cabecera -->
-    <div class="px-6 py-4 border-b border-gray-300 dark:border-gray-700 flex justify-between items-center">
-      <h2 class="text-lg font-semibold" id="modal-title">Título del modal</h2>
-      <button onclick="cerrarModal()" class="text-xl font-bold text-gray-500 hover:text-red-500 cursor-pointer">&times;</button>
+    <div class="px-6 py-4 border-b border-gray-300 dark:border-gray-700 flex webkit-flex items-center justify-between">
+      <h2 class="text-lg font-semibold m-0" id="modal-title">Título del modal</h2>
+      <button onclick="cerrarModal()" class="text-2xl font-bold text-gray-500 hover:text-red-500 cursor-pointer leading-none">
+      &times;
+      </button>
     </div>
-
     <!-- Cuerpo -->
     <div class="p-6 space-y-2 max-h-[60vh] overflow-y-auto" id="modal-content">
       <!-- Aquí se insertará contenido dinámico -->
