@@ -4,6 +4,7 @@
     <meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <link rel="stylesheet" href="css/custom.css">
+    <link rel="stylesheet" href="css/safari.css">
     <script src="js/jquery-3.7.1.min.js"></script>
     <script src="js/index.global.min.js"></script>
     <script>
@@ -109,9 +110,7 @@
 
     </script>
     <style>
-      .webkit-flex {
-  display: -webkit-flex;
-}
+     
     </style>
   </head>
   <body class="min-h-screen bg-white dark:bg-gray-800">
@@ -123,9 +122,9 @@
   <div class="bg-white dark:bg-gray-800 text-gray-900 dark:text-white w-full max-w-lg mx-4 rounded-xl shadow-lg overflow-hidden animate-fade-in">
     
     <!-- Cabecera -->
-    <div class="px-6 py-4 border-b border-gray-300 dark:border-gray-700 flex webkit-flex items-center justify-between">
+    <div class="px-6 py-4 border-b border-gray-300 dark:border-gray-700 relative h-14">
       <h2 class="text-lg font-semibold m-0" id="modal-title">Título del modal</h2>
-      <button onclick="cerrarModal()" class="text-2xl font-bold text-gray-500 hover:text-red-500 cursor-pointer leading-none">
+      <button onclick="cerrarModal()" class="text-2xl font-bold text-gray-500 hover:text-red-500 cursor-pointer leading-none absolute right-4 top-4">
       &times;
       </button>
     </div>

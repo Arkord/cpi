@@ -1,0 +1,9 @@
+.fc, .fc-multimonth-header, .fc-multimonth-title, .columnheader, .fc-scrollgrid-sync-inner {
+    background: #101828;
+    color: #fff;
+}
+.webkit-flex {
+    display: -webkit-flex;
+    justify-content: space-between;
+    -webkit-justify-content: space-between;
+}
