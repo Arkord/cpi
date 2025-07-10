@@ -2,151 +2,176 @@
 <html class="dark">
   <head>
     <meta charset="utf-8" />
-	<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <link rel="stylesheet" href="css/custom.css">
-    <link rel="stylesheet" href="css/safari.css">
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+    />
+    <title>Calendario</title>
+    <link rel="stylesheet" href="css/custom.css" />
+    <link rel="stylesheet" href="css/safari.css" />
     <script src="js/jquery-3.7.1.min.js"></script>
     <script src="js/index.global.min.js"></script>
     <script>
       const alumnos = [
-        { calendario: '1', nombre: 'Ana López',        matricula: 'A001' },
-        { calendario: '1', nombre: 'Carlos Ruiz',      matricula: 'A002' },
-        { calendario: '1', nombre: 'María Hernández',  matricula: 'A003' },
-        { calendario: '1', nombre: 'Luis Fernández',   matricula: 'A004' },
-        { calendario: '1', nombre: 'Gabriela Torres',  matricula: 'A005' },
-        { calendario: '1', nombre: 'Jorge Martínez',   matricula: 'A006' },
-        { calendario: '1', nombre: 'Valeria Ramírez',  matricula: 'A007' },
-        { calendario: '1', nombre: 'Ernesto Gómez',    matricula: 'A008' },
-        { calendario: '2', nombre: 'Lucía Morales',    matricula: 'B001' },
-        { calendario: '2', nombre: 'Sofía Castillo',   matricula: 'B002' },
-        { calendario: '2', nombre: 'Daniel Méndez',    matricula: 'B003' },
-        { calendario: '2', nombre: 'Andrea Salinas',   matricula: 'B004' },
-        { calendario: '2', nombre: 'Pablo Chávez',     matricula: 'B005' },
-        { calendario: '2', nombre: 'Renata Aguirre',   matricula: 'B006' },
-        { calendario: '2', nombre: 'Tomás Domínguez',  matricula: 'B007' },
-        { calendario: '2', nombre: 'Camila Navarro',   matricula: 'B008' }
+        { calendario: "1", nombre: "Ana López", matricula: "A001" },
+        { calendario: "1", nombre: "Carlos Ruiz", matricula: "A002" },
+        { calendario: "1", nombre: "María Hernández", matricula: "A003" },
+        { calendario: "1", nombre: "Luis Fernández", matricula: "A004" },
+        { calendario: "1", nombre: "Gabriela Torres", matricula: "A005" },
+        { calendario: "1", nombre: "Jorge Martínez", matricula: "A006" },
+        { calendario: "1", nombre: "Valeria Ramírez", matricula: "A007" },
+        { calendario: "1", nombre: "Ernesto Gómez", matricula: "A008" },
+        { calendario: "2", nombre: "Lucía Morales", matricula: "B001" },
+        { calendario: "2", nombre: "Sofía Castillo", matricula: "B002" },
+        { calendario: "2", nombre: "Daniel Méndez", matricula: "B003" },
+        { calendario: "2", nombre: "Andrea Salinas", matricula: "B004" },
+        { calendario: "2", nombre: "Pablo Chávez", matricula: "B005" },
+        { calendario: "2", nombre: "Renata Aguirre", matricula: "B006" },
+        { calendario: "2", nombre: "Tomás Domínguez", matricula: "B007" },
+        { calendario: "2", nombre: "Camila Navarro", matricula: "B008" },
       ];
-      const calendarios =  [
-              {
-                id: '1',
-                start: '2025-06-01',
-                end: '2025-06-04',
-                display: 'background',
-                backgroundColor: '#3b82f6',
-                title: 'Calendario 1'
-              },
-              {
-                id: '2',
-                start: '2025-06-09',
-                end: '2025-06-15',
-                display: 'background',
-                backgroundColor: '#ef4444', 
-                title: 'Calendario 2'
-              }
-            ]
-    $(function () {
-    const calendar = new FullCalendar.Calendar($('#calendar')[0], {
-      initialView: 'multiMonthYear',
-	  contentHeight: 'auto',
-      locale: 'es',
-      buttonText: {
-        today: 'Hoy'
-      },
-      events: calendarios,
-      dateClick: function (info) {
-        const clickedDate = new Date(info.dateStr);
+      const calendarios = [
+        {
+          id: "1",
+          start: "2025-06-01",
+          end: "2025-06-04",
+          display: "background",
+          backgroundColor: "#3b82f6",
+          title: "Calendario 1",
+        },
+        {
+          id: "2",
+          start: "2025-06-09",
+          end: "2025-06-15",
+          display: "background",
+          backgroundColor: "#ef4444",
+          title: "Calendario 2",
+        },
+      ];
+      $(function () {
+        const calendar = new FullCalendar.Calendar($("#calendar")[0], {
+          initialView: "multiMonthYear",
+          contentHeight: "auto",
+          locale: "es",
+          buttonText: {
+            today: "Hoy",
+          },
+          events: calendarios,
+          dateClick: function (info) {
+            const clickedDate = new Date(info.dateStr);
 
-        const rangosActivos = calendarios.filter(r => {
-          const start = new Date(r.start);
-          const end = new Date(r.end);
-          return clickedDate >= start && clickedDate < end;
-        });
-
-        if (rangosActivos.length === 0) return;
-
-        const primerRango = rangosActivos[0];
-        const nombreCalendario = `📅${primerRango.title}` || `Calendario ${primerRango.id}`;
-
-        $('#modal-title').text(nombreCalendario);
-        const $contenido = $('#modal-content').empty();
-
-        $.each(rangosActivos, function (_, rango) {
-          const alumnosEnRango = alumnos.filter(a => a.calendario === rango.id);
-
-          // $contenido.append(`<div class="font-bold text-blue-400 mb-2">📅 ${rango.title} (ID ${rango.id})</div>`);
-
-          if (alumnosEnRango.length > 0) {
-            const $ul = $('<ul class="list-disc list-inside space-y-1"></ul>');
-            $.each(alumnosEnRango, function (_, a) {
-              $ul.append(`<li>${a.nombre} (${a.matricula})</li>`);
+            const rangosActivos = calendarios.filter((r) => {
+              const start = new Date(r.start);
+              const end = new Date(r.end);
+              return clickedDate >= start && clickedDate < end;
             });
-            $contenido.append($ul);
-          } else {
-            $contenido.append('<p class="text-sm text-gray-400 italic">Sin alumnos.</p>');
-          }
+
+            if (rangosActivos.length === 0) return;
+
+            const primerRango = rangosActivos[0];
+            const nombreCalendario =
+              `📅${primerRango.title}` || `Calendario ${primerRango.id}`;
+
+            $("#modal-title").text(nombreCalendario);
+            const $contenido = $("#modal-content").empty();
+
+            $.each(rangosActivos, function (_, rango) {
+              const alumnosEnRango = alumnos.filter(
+                (a) => a.calendario === rango.id
+              );
+
+              // $contenido.append(`<div class="font-bold text-blue-400 mb-2">📅 ${rango.title} (ID ${rango.id})</div>`);
+
+              if (alumnosEnRango.length > 0) {
+                const $ul = $(
+                  '<ul class="list-disc list-inside space-y-1"></ul>'
+                );
+                $.each(alumnosEnRango, function (_, a) {
+                  $ul.append(`<li>${a.nombre} (${a.matricula})</li>`);
+                });
+                $contenido.append($ul);
+              } else {
+                $contenido.append(
+                  '<p class="text-sm text-gray-400 italic">Sin alumnos.</p>'
+                );
+              }
+            });
+
+            $("#modal").removeClass("hidden");
+          },
         });
 
-        $('#modal').removeClass('hidden');
-      }
-    });
+        calendar.render();
 
-    calendar.render();
+        // Cerrar modal
+        window.cerrarModal = function () {
+          $("#modal").addClass("hidden");
+          $("#modal-content").empty();
+        };
 
-    // Cerrar modal
-    window.cerrarModal = function () {
-      $('#modal').addClass('hidden');
-      $('#modal-content').empty();
-    };
+        // También cerrar con tecla ESC o clic fuera (opcional)
+        $(document).on("keydown", function (e) {
+          if (e.key === "Escape") cerrarModal();
+        });
 
-    // También cerrar con tecla ESC o clic fuera (opcional)
-    $(document).on('keydown', function (e) {
-      if (e.key === 'Escape') cerrarModal();
-    });
-
-    $('#modal').on('click', function (e) {
-      if (e.target.id === 'modal') cerrarModal();
-    });
-  });
-
+        $("#modal").on("click", function (e) {
+          if (e.target.id === "modal") cerrarModal();
+        });
+      });
     </script>
-    <style>
-     
-    </style>
+    <style></style>
   </head>
   <body class="min-h-screen bg-white dark:bg-gray-800">
-    <nav class="text-white text-center" >
-      <a href="">Calendarios</a>
-      <a href="">Configuracion</a>
-      <a href="">Alumnos</a>
+    <nav class="text-white text-center navigation">
+      <a href="calendario.html">Calendario</a>
+      <a href="alumnos.html">Alumnos</a>
+      <a href="configuración">Configuración</a>
     </nav>
-
 
     <div id="calendar" class="w-full h-screen max-w-none"></div>
 
-   <!-- Modal Tailwind -->
-<div id="modal"
-     class="fixed inset-0 z-50 hidden flex items-center justify-center bg-black/20 backdrop-blur-sm">
-  <div class="bg-white dark:bg-gray-800 text-gray-900 dark:text-white w-full max-w-lg mx-4 rounded-xl shadow-lg overflow-hidden animate-fade-in">
-    
-    <!-- Cabecera -->
-    <div class="px-6 py-4 border-b border-gray-300 dark:border-gray-700 relative h-14">
-      <h2 class="text-lg font-semibold m-0" id="modal-title">Título del modal</h2>
-      <button onclick="cerrarModal()" class="text-2xl font-bold text-gray-500 hover:text-red-500 cursor-pointer leading-none absolute right-4 top-4">
-      &times;
-      </button>
-    </div>
-    <!-- Cuerpo -->
-    <div class="p-6 space-y-2 max-h-[60vh] overflow-y-auto" id="modal-content">
-      <!-- Aquí se insertará contenido dinámico -->
-    </div>
+    <!-- Modal Tailwind -->
+    <div
+      id="modal"
+      class="fixed inset-0 z-50 hidden flex items-center justify-center bg-black/20 backdrop-blur-sm"
+    >
+      <div
+        class="bg-white dark:bg-gray-800 text-gray-900 dark:text-white w-full max-w-lg mx-4 rounded-xl shadow-lg overflow-hidden animate-fade-in"
+      >
+        <!-- Cabecera -->
+        <div
+          class="px-6 py-4 border-b border-gray-300 dark:border-gray-700 relative h-14"
+        >
+          <h2 class="text-lg font-semibold m-0" id="modal-title">
+            Título del modal
+          </h2>
+          <button
+            onclick="cerrarModal()"
+            class="text-2xl font-bold text-gray-500 hover:text-red-500 cursor-pointer leading-none absolute right-4 top-4"
+          >
+            &times;
+          </button>
+        </div>
+        <!-- Cuerpo -->
+        <div
+          class="p-6 space-y-2 max-h-[60vh] overflow-y-auto"
+          id="modal-content"
+        >
+          <!-- Aquí se insertará contenido dinámico -->
+        </div>
 
-    <!-- Pie -->
-    <div class="px-6 py-4 border-t border-gray-300 dark:border-gray-700 text-right">
-      <button onclick="cerrarModal()" class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition cursor-pointer">
-        Cerrar
-      </button>
+        <!-- Pie -->
+        <div
+          class="px-6 py-4 border-t border-gray-300 dark:border-gray-700 text-right"
+        >
+          <button
+            onclick="cerrarModal()"
+            class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition cursor-pointer"
+          >
+            Cerrar
+          </button>
+        </div>
+      </div>
     </div>
-  </div>
-</div>
   </body>
 </html>

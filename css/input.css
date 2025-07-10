@@ -1,10 +1,19 @@
 @import "tailwindcss";
 
-.fc, .fc-multimonth-header, .fc-multimonth-title, .columnheader, .fc-scrollgrid-sync-inner {
+.navigation a {
+  @apply mx-3 underline hover:text-blue-500;
+}
+
+.fc,
+.fc-multimonth-header,
+.fc-multimonth-title,
+.columnheader,
+.fc-scrollgrid-sync-inner {
   @apply bg-gray-900 text-white shadow-lg;
 }
 
-.fc-toolbar-title, .fc-multimonth-title {
+.fc-toolbar-title,
+.fc-multimonth-title {
   @apply text-xl font-bold text-white;
 }
 
@@ -40,19 +49,23 @@
   @apply border-gray-600;
 }
 .fc-daygrid-day-frame {
-    @apply bg-gray-600 ;
+  @apply bg-gray-600;
 }
 
-.fc-theme-standard td, .fc-theme-standard th {
-    @apply border-gray-500 cursor-pointer;
+.fc-theme-standard td,
+.fc-theme-standard th {
+  @apply border-gray-500 cursor-pointer;
 }
 
-.fc-daygrid-day-number, .fc-col-header-cell-cushion, .fc-toolbar-title, .fc {
-    @apply text-gray-300;
+.fc-daygrid-day-number,
+.fc-col-header-cell-cushion,
+.fc-toolbar-title,
+.fc {
+  @apply text-gray-300;
 }
 
 .fc-event-title {
-    @apply text-center
+  @apply text-center;
 }
 
 .webkit-flex {
