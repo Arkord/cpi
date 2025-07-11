@@ -1,5 +1,17 @@
 @import "tailwindcss";
 
+.navigation {
+  @apply py-2;
+}
+
+.navigation a {
+  @apply hover:text-blue-500 underline text-white mx-3;
+}
+
+.fc-header-toolbar {
+  @apply mt-6;
+}
+
 .fc, .fc-multimonth-header, .fc-multimonth-title, .columnheader, .fc-scrollgrid-sync-inner {
   @apply bg-gray-900 text-white shadow-lg;
 }
