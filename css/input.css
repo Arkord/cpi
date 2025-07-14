@@ -70,3 +70,8 @@
 .webkit-flex {
   display: -webkit-flex;
 }
+
+/* Alumnos */
+.dt-search label, input.dt-input, #dt-search-0, .dt-length label, #dt-length-0, .dataTable td, #alumnos_info {
+  @apply text-white;
+}
