@@ -2,7 +2,7 @@
 $actual = basename($_SERVER['SCRIPT_NAME']);
 function isActive($file) {
     global $actual;
-    return $actual === $file ? 'text-red-800 underline' : '';
+    return $actual === $file ? 'nav-current' : '';
 }
 ?>
 <nav class="navigation text-center text-white space-x-4">

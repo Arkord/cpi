@@ -75,3 +75,11 @@
 .dt-search label, input.dt-input, #dt-search-0, .dt-length label, #dt-length-0, .dataTable td, #alumnos_info {
   @apply text-white;
 }
+
+.table-custom tbody tr:hover {
+  @apply bg-gray-700;
+}
+
+a.nav-current {
+  @apply text-blue-500;
+}
