@@ -6,7 +6,8 @@ function isActive($file) {
 }
 ?>
 <nav class="navigation text-center text-white space-x-4">
-  <a class="<?=isActive('calendario.php')?>" href="calendario.php">Calendario</a>
+  <a class="<?=isActive('index.php')?>" href="index.php">Inicio</a>
   <a class="<?=isActive('alumnos.php')?>"    href="alumnos.php">Alumnos</a>
-  <a class="<?=isActive('configuracion.php')?>" href="configuracion.php">Configuración</a>
+  <a class="<?=isActive('calendarios.php')?>"    href="calendarios.php">Calendarios</a>
+  <a class="<?=isActive('asignacion.php')?>" href="asignacion.php">Asignación</a>
 </nav>

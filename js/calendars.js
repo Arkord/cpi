@@ -1,8 +1,8 @@
 $(function () {
-  const tabla = $("#alumnos").DataTable({
+  const tabla = $("#calendarios").DataTable({
     responsive: true,
     ajax: {
-      url: "php/fetch_students.php",
+      url: "php/fetch_calendars.php",
       dataSrc: "data",
     },
     language: {
@@ -12,65 +12,65 @@ $(function () {
       loadingRecords: "Cargando...",
       lengthMenu: "_MENU_ registros por página",
       emptyTable: "No hay registros disponibles en la tabla",
-      infoFiltered: "(filtados de un total de  _MAX_ registros)",
+      infoFiltered: "(filtrados de un total de _MAX_ registros)",
       zeroRecords: "No se encontraron registros que concuerden con el criterio",
     },
   });
 
   const $modal = $("#modal");
-  const $form = $("#form-alumno");
-  const $guardarBtn = $("#guardar-alumno");
-  let modo = "crear"; // o 'editar'
-  let alumnoId = null;
+  const $form = $("#form-calendario");
+  const $guardarBtn = $("#guardar-calendario");
+  let modo = "crear";
+  let calendarioId = null;
 
+  // Abrir modal para agregar
   $("#btn-agregar").on("click", () => {
     modo = "crear";
-    alumnoId = null;
-    $("#modal-title").text("Nuevo alumno");
+    calendarioId = null;
+    $("#modal-title").text("Nuevo calendario");
     $form[0].reset();
     $modal.removeClass("hidden");
   });
 
+  // Cerrar modal
   $("#cerrar-modal, #cancelar-modal").on("click", () => {
     $modal.addClass("hidden");
     $form[0].reset();
     modo = "crear";
-    alumnoId = null;
+    calendarioId = null;
   });
 
-  // Delegar clic para el botón Editar
-  $("#alumnos tbody").on("click", ".btn-editar", function () {
+  // Editar
+  $("#calendarios tbody").on("click", ".btn-editar", function () {
     const $btn = $(this);
 
-    // Obtener datos desde atributos del botón
-    alumnoId = $btn.data("id");
-    const nombre = $btn.data("nombre");
-    const apellidos = $btn.data("apellidos");
-    const matricula = $btn.data("matricula");
+    calendarioId = $btn.data("id");
+    const etiqueta = $btn.data("etiqueta");
+    const fechaInicio = $btn.data("fechainicio");
+    const fechaFin = $btn.data("fechafin");
 
-    // Prellenar el formulario
-    $("[name=nombre]").val(nombre);
-    $("[name=apellidos]").val(apellidos);
-    $("[name=matricula]").val(matricula);
+    $("[name=etiqueta]").val(etiqueta);
+    $("[name=fechaInicio]").val(fechaInicio);
+    $("[name=fechaFin]").val(fechaFin);
 
-    $("#modal-title").text("Editar alumno");
+    $("#modal-title").text("Editar calendario");
     modo = "editar";
 
-    $("#modal").removeClass("hidden");
+    $modal.removeClass("hidden");
   });
 
   // Guardar (insertar o actualizar)
   $guardarBtn.on("click", async () => {
     const datos = {
-      nombre: $("[name=nombre]").val(),
-      apellidos: $("[name=apellidos]").val(),
-      matricula: $("[name=matricula]").val(),
+      etiqueta: $("[name=etiqueta]").val(),
+      fechaInicio: $("[name=fechaInicio]").val(),
+      fechaFin: $("[name=fechaFin]").val(),
     };
 
-    let url = "php/insert_student.php";
-    if (modo === "editar" && alumnoId !== null) {
-      url = "php/update_student.php";
-      datos.id = alumnoId;
+    let url = "php/insert_calendar.php";
+    if (modo === "editar" && calendarioId !== null) {
+      url = "php/update_calendar.php";
+      datos.id = calendarioId;
     }
 
     const $errorDiv = $("#form-error");
@@ -93,7 +93,7 @@ $(function () {
       $modal.addClass("hidden");
       $errorDiv.addClass("hidden").text("");
       modo = "crear";
-      alumnoId = null;
+      calendarioId = null;
 
       tabla.ajax.reload(null, false);
     } catch (err) {
@@ -101,29 +101,30 @@ $(function () {
     }
   });
 
-  let alumnoIdEliminar = null;
+  // Eliminar
+  let calendarioIdEliminar = null;
   const $modalEliminar = $("#modal-eliminar");
   const $deleteError = $("#delete-error");
 
-  $("#alumnos").on("click", ".btn-eliminar", function () {
-    alumnoIdEliminar = $(this).data("id");
+  $("#calendarios").on("click", ".btn-eliminar", function () {
+    calendarioIdEliminar = $(this).data("id");
     $deleteError.addClass("hidden").text("");
     $modalEliminar.removeClass("hidden");
   });
 
   $("#cancelar-eliminar").on("click", () => {
     $modalEliminar.addClass("hidden");
-    alumnoIdEliminar = null;
+    calendarioIdEliminar = null;
   });
 
   $("#confirmar-eliminar").on("click", async () => {
-    if (!alumnoIdEliminar) return;
+    if (!calendarioIdEliminar) return;
 
     try {
-      const response = await fetch("php/delete_student.php", {
+      const response = await fetch("php/delete_calendar.php", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ id: alumnoIdEliminar }),
+        body: JSON.stringify({ id: calendarioIdEliminar }),
       });
 
       const res = await response.json();
@@ -136,9 +137,8 @@ $(function () {
       }
 
       $modalEliminar.addClass("hidden");
-      alumnoIdEliminar = null;
+      calendarioIdEliminar = null;
 
-      // Recargar la tabla usando la función de DataTables
       tabla.ajax.reload(null, false);
     } catch (err) {
       $deleteError

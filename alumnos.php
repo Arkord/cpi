@@ -21,7 +21,6 @@
         <th>ID</th>
         <th>Matrícula</th>
         <th>Nombre completo</th>
-        <th>Calendarios</th>
         <th>Acciones</th>
       </tr>
     </thead>
@@ -99,6 +98,22 @@
       </div>
     </div>
   </div>
+
+  <div id="modal-eliminar" class="fixed inset-0 z-50 hidden flex items-center justify-center bg-black/20 backdrop-blur-sm">
+  <div class="bg-white dark:bg-gray-800 text-gray-900 dark:text-white w-full max-w-sm mx-4 rounded-xl shadow-lg overflow-hidden animate-fade-in">
+    <div class="px-6 py-4 border-b border-gray-300 dark:border-gray-700">
+      <h2 class="text-lg font-semibold">Confirmar eliminación</h2>
+    </div>
+    <div class="p-6">
+      <p>¿Estás seguro de que deseas eliminar este alumno?</p>
+      <div id="delete-error" class="text-red-500 text-sm hidden mt-2"></div>
+    </div>
+    <div class="px-6 py-4 border-t border-gray-300 dark:border-gray-700 text-right">
+      <button id="cancelar-eliminar" class="px-4 py-2 bg-gray-400 text-white rounded hover:bg-gray-500 transition cursor-pointer">Cancelar</button>
+      <button id="confirmar-eliminar" class="px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700 transition cursor-pointer">Eliminar</button>
+    </div>
+  </div>
+</div>
 
   <script src="js/students.js"></script>
 </body>

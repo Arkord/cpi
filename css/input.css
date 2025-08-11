@@ -72,7 +72,7 @@
 }
 
 /* Alumnos */
-.dt-search label, input.dt-input, #dt-search-0, .dt-length label, #dt-length-0, .dataTable td, #alumnos_info {
+.dt-search label, input.dt-input, #dt-search-0, .dt-length label, #dt-length-0, .dataTable td, #alumnos_info, #calendarios_info, #tabla-estudiantes_info, #students_info {
   @apply text-white;
 }
 
