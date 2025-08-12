@@ -6,6 +6,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   $etiqueta = trim($data['etiqueta'] ?? '');
   $fechaInicio = $data['fechaInicio'] ?? '';
   $fechaFin = $data['fechaFin'] ?? '';
+  $color = $data['color'] ?? '';
 
   if (!$etiqueta || !$fechaInicio || !$fechaFin) {
     http_response_code(400);
@@ -14,8 +15,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   }
 
   try {
-    $stmt = $pdo->prepare("INSERT INTO calendars (etiqueta, fechaInicio, fechaFin) VALUES (?, ?, ?)");
-    $stmt->execute([$etiqueta, $fechaInicio, $fechaFin]);
+    $stmt = $pdo->prepare("INSERT INTO calendars (etiqueta, fechaInicio, fechaFin, color) VALUES (?, ?, ?, ?)");
+    $stmt->execute([$etiqueta, $fechaInicio, $fechaFin, $color]);
 
     echo json_encode(['success' => true]);
   } catch (PDOException $e) {

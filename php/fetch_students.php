@@ -2,7 +2,7 @@
 require_once 'db.php';
 
 try {
-  $stmt = $pdo->query("SELECT id, nombre, apellidos, matricula FROM students");
+  $stmt = $pdo->query("SELECT id, nombre, apellidos, matricula, IFNULL(aula, '') AS aula, IFNULL(hora, '') AS hora FROM students");
   $data = [];
 
   while ($row = $stmt->fetch()) {
@@ -11,7 +11,9 @@ try {
       data-id="' . $row['id'] . '"
       data-nombre="' . htmlspecialchars($row['nombre']) . '"
       data-apellidos="' . htmlspecialchars($row['apellidos']) . '"
-      data-matricula="' . htmlspecialchars($row['matricula']) . '">Editar</button>';
+      data-matricula="' . htmlspecialchars($row['matricula']) . '"
+      data-aula="' . htmlspecialchars($row['aula']) . '"
+      data-hora="' . htmlspecialchars($row['hora']) . '">Editar</button>';
 
     $botonEliminar = '<button class="btn-eliminar px-2 py-1 text-sm bg-red-500 text-white rounded hover:bg-red-600 transition cursor-pointer"
       data-id="' . $row['id'] . '">Eliminar</button>';
@@ -20,6 +22,8 @@ try {
       $row['id'],
       $row['matricula'],
       $nombreCompleto,
+      $row['aula'],
+      $row['hora'],
       $botonEditar . ' ' . $botonEliminar
     ];
   }

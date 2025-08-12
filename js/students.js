@@ -47,11 +47,15 @@ $(function () {
     const nombre = $btn.data("nombre");
     const apellidos = $btn.data("apellidos");
     const matricula = $btn.data("matricula");
+    const aula = $btn.data("aula");
+    const hora = $btn.data("hora");
 
     // Prellenar el formulario
     $("[name=nombre]").val(nombre);
     $("[name=apellidos]").val(apellidos);
     $("[name=matricula]").val(matricula);
+    $("[name=aula]").val(aula);
+    $("[name=hora]").val(hora);
 
     $("#modal-title").text("Editar alumno");
     modo = "editar";
@@ -65,6 +69,8 @@ $(function () {
       nombre: $("[name=nombre]").val(),
       apellidos: $("[name=apellidos]").val(),
       matricula: $("[name=matricula]").val(),
+      aula: $("[name=aula]").val(),
+      hora: $("[name=hora]").val()
     };
 
     let url = "php/insert_student.php";

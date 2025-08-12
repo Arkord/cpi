@@ -8,8 +8,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   $nombre = $data['nombre'] ?? '';
   $apellidos = $data['apellidos'] ?? '';
   $matricula = $data['matricula'] ?? '';
+  $aula = trim($data['aula'] ?? '');
+  $hora = trim($data['hora'] ?? '');
 
-  if ($id && $nombre && $apellidos && $matricula) {
+  if ($id && $nombre && $apellidos && $matricula && $aula && $hora) {
     try {
       // Obtener matrícula actual
       $stmt = $pdo->prepare("SELECT matricula FROM students WHERE id = ?");
@@ -28,8 +30,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       }
 
       // Realizar actualización
-      $stmt = $pdo->prepare("UPDATE students SET nombre = ?, apellidos = ?, matricula = ? WHERE id = ?");
-      $stmt->execute([$nombre, $apellidos, $matricula, $id]);
+      $stmt = $pdo->prepare("UPDATE students SET nombre = ?, apellidos = ?, matricula = ?, aula = ?, hora = ? WHERE id = ?");
+      $stmt->execute([$nombre, $apellidos, $matricula, $aula, $hora, $id]);
 
       echo json_encode(['success' => true]);
     } catch (PDOException $e) {

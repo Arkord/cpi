@@ -2,7 +2,7 @@
 require_once 'db.php';
 
 try {
-  $stmt = $pdo->query("SELECT id, etiqueta, fechaInicio, fechaFin FROM calendars");
+  $stmt = $pdo->query("SELECT id, etiqueta, fechaInicio, fechaFin , IFNULL(color, '#cccccc') AS color FROM calendars");
   $data = [];
 
   while ($row = $stmt->fetch()) {
@@ -10,7 +10,8 @@ try {
       data-id="' . $row['id'] . '"
       data-etiqueta="' . htmlspecialchars($row['etiqueta']) . '"
       data-fechainicio="' . $row['fechaInicio'] . '"
-      data-fechafin="' . $row['fechaFin'] . '">Editar</button>';
+      data-fechafin="' . $row['fechaFin'] . '"
+      data-color="' . htmlspecialchars($row['color']) . '">Editar</button>';
 
     $botonEliminar = '<button class="btn-eliminar px-2 py-1 text-sm bg-red-500 text-white rounded hover:bg-red-600 transition cursor-pointer"
       data-id="' . $row['id'] . '">Eliminar</button>';
@@ -20,6 +21,7 @@ try {
       htmlspecialchars($row['etiqueta']),
       $row['fechaInicio'],
       $row['fechaFin'],
+      '<div style="width:20px; height:20px; background:' . htmlspecialchars($row['color']) . '; border-radius:4px;"></div>',
       $botonEditar . ' ' . $botonEliminar
     ];
   }

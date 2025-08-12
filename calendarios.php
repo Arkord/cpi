@@ -21,6 +21,7 @@
                 <th>Etiqueta</th>
                 <th>Fecha Inicio</th>
                 <th>Fecha Fin</th>
+                <th>Color</th>
                 <th>Acciones</th>
             </tr>
         </thead>
@@ -76,6 +77,15 @@
                             name="fechaFin"
                             required
                             class="w-full p-2 border border-gray-300 rounded dark:bg-gray-700 dark:border-gray-600 dark:text-white" />
+                    </div>
+                    <div>
+                        <label class="block text-sm mb-1">Color</label>
+                        <input
+                            type="color"
+                            name="color"
+                            required
+                            value="#000000"
+                            class="w-16 h-10 border border-gray-300 rounded dark:bg-gray-700 dark:border-gray-600 dark:text-white cursor-pointer" />
                     </div>
                     <div id="form-error" class="text-red-500 text-sm hidden"></div>
                 </form>

@@ -48,10 +48,12 @@ $(function () {
     const etiqueta = $btn.data("etiqueta");
     const fechaInicio = $btn.data("fechainicio");
     const fechaFin = $btn.data("fechafin");
+    const color = $btn.data("color");
 
     $("[name=etiqueta]").val(etiqueta);
     $("[name=fechaInicio]").val(fechaInicio);
     $("[name=fechaFin]").val(fechaFin);
+    $("[name=color]").val(color);
 
     $("#modal-title").text("Editar calendario");
     modo = "editar";
@@ -65,6 +67,7 @@ $(function () {
       etiqueta: $("[name=etiqueta]").val(),
       fechaInicio: $("[name=fechaInicio]").val(),
       fechaFin: $("[name=fechaFin]").val(),
+      color: $("[name=color]").val()
     };
 
     let url = "php/insert_calendar.php";

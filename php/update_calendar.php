@@ -7,6 +7,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   $etiqueta = trim($data['etiqueta'] ?? '');
   $fechaInicio = $data['fechaInicio'] ?? '';
   $fechaFin = $data['fechaFin'] ?? '';
+  $color = $data['color'] ?? '';
 
   if (!$id || !$etiqueta || !$fechaInicio || !$fechaFin) {
     http_response_code(400);
@@ -15,8 +16,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   }
 
   try {
-    $stmt = $pdo->prepare("UPDATE calendars SET etiqueta=?, fechaInicio=?, fechaFin=? WHERE id=?");
-    $stmt->execute([$etiqueta, $fechaInicio, $fechaFin, $id]);
+    $stmt = $pdo->prepare("UPDATE calendars SET etiqueta=?, fechaInicio=?, fechaFin=?, color=? WHERE id=?");
+    $stmt->execute([$etiqueta, $fechaInicio, $fechaFin, $color, $id]);
 
     if ($stmt->rowCount() > 0) {
       echo json_encode(['success' => true]);
