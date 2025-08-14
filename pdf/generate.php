@@ -11,21 +11,58 @@ function utf8_to_iso88591($text)
 // Clase PDF personalizada
 class PDF extends FPDF
 {
+    // Convertir HEX a RGB
+    private function hex2rgb($hex)
+    {
+        $hex = str_replace('#', '', $hex);
+        if (strlen($hex) == 3) {
+            $r = hexdec(str_repeat(substr($hex, 0, 1), 2));
+            $g = hexdec(str_repeat(substr($hex, 1, 1), 2));
+            $b = hexdec(str_repeat(substr($hex, 2, 1), 2));
+        } else {
+            $r = hexdec(substr($hex, 0, 2));
+            $g = hexdec(substr($hex, 2, 2));
+            $b = hexdec(substr($hex, 4, 2));
+        }
+        return [$r, $g, $b];
+    }
+
     // Encabezado
     function Header()
     {
-        // Logos
-        $this->Image('../images/logo.png', 10, 8, 30);
-        $this->Image('../images/logo.png', 170, 8, 30);
+        $ancho = $this->GetPageWidth();
+        $alto = $this->GetPageHeight();
 
-        // Fuente para título
+        // ==== Franja rosa (5% del alto) ====
+        list($r1, $g1, $b1) = $this->hex2rgb('#ffc6bd');
+        $alto_rosa = 10;
+        $this->SetFillColor($r1, $g1, $b1);
+        $this->Rect(0, 0, $ancho, $alto_rosa, 'F');
+
+        // ==== Franja azul (resto del alto) ====
+        list($r2, $g2, $b2) = $this->hex2rgb('#6a8bfe');
+        $this->SetFillColor($r2, $g2, $b2);
+        $this->Rect(0, $alto_rosa, $ancho, $alto - $alto_rosa, 'F');
+
+        // ==== Rectángulo blanco centrado ====
+        $ancho_rect = $ancho * 0.95; // 70% del ancho
+        $alto_rect = 20;
+        $x_rect = ($ancho - $ancho_rect) / 2;
+        $y_rect = 8;
+        $this->SetFillColor(255, 255, 255);
+        $this->Rect($x_rect, $y_rect, $ancho_rect, $alto_rect, 'F');
+
+        // ==== Logos ====
+        $this->Image('../images/logo.png', $x_rect + 5, $y_rect + 2, 30);
+        // $this->Image('../images/logo.png', $x_rect + $ancho_rect - 25, $y_rect + 5, 20);
+
+        // ==== Título centrado ====
         $this->SetFont('Arial', 'B', 15);
+        $this->SetXY(0, $y_rect + 10);
+        // $this->Cell($ancho, 10, utf8_to_iso88591('Reporte de Estudiantes'), 0, 1, 'C');
 
-        // Título centrado
-        $this->Cell(0, 10, utf8_to_iso88591('Reporte de Estudiantes'), 0, 1, 'C');
-
-        // Salto de línea
-        $this->Ln(10);
+        // Salto de línea para que el contenido no se monte encima
+        $this->Ln(15);
     }
 
     // Pie de página
