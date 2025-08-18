@@ -13,8 +13,11 @@ $(function () {
         orderable: false,
         searchable: false,
         render: function (data, type, row) {
-          return `<button class="btn-asignar px-2 py-1 bg-blue-600 text-white rounded hover:bg-blue-700 transition cursor-pointer" data-id="${row[0]}" data-nombre="${row[2]}">Asignar calendarios</button>`;
-        },
+          return `
+            <button class="btn-asignar px-2 py-1 bg-blue-600 text-white rounded hover:bg-blue-700 transition cursor-pointer" data-id="${row[0]}" data-nombre="${row[2]}">Asignar calendarios</button>
+            <button class="btn-pdf px-2 py-1 bg-green-600 text-white rounded hover:bg-green-700 transition cursor-pointer ml-1" data-id="${row[0]}" data-nombre="${row[2]}" data-matricula="${row[1]}">Generar recibo</button>
+          `;
+        }
       },
     ],
     responsive: true,
@@ -70,9 +73,8 @@ $(function () {
         const isChecked = assignedIds.has(idCalendar);
         const checkbox = $(`
           <label class="flex items-center space-x-2 cursor-pointer">
-            <input type="checkbox" class="checkbox-calendario" value="${idCalendar}" ${
-          isChecked ? "checked" : ""
-        } />
+            <input type="checkbox" class="checkbox-calendario" value="${idCalendar}" ${isChecked ? "checked" : ""
+          } />
             <span>${c[1]} (${c[2]} - ${c[3]})</span>
           </label>
         `);
@@ -125,4 +127,14 @@ $(function () {
       $formError.text("Error inesperado: " + err.message).removeClass("hidden");
     }
   });
+
+  $("#students tbody").on("click", ".btn-pdf", function () {
+    const id = $(this).data("id");
+    const nombre = $(this).data("nombre");
+    const matricula = $(this).data("matricula");
+
+
+    window.open(`pdf/generate.php?id=${id}`, '_blank');
+  });
+
 });
